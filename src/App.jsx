@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { useAccount } from 'wagmi';
+import { useEffect } from 'react';
 import Header from './components/Header';
 import Dashboard from './pages/Dashboard';
 import Campaigns from './pages/Campaigns';
@@ -7,9 +8,16 @@ import Influencers from './pages/Influencers';
 import Analytics from './pages/Analytics';
 import Settings from './pages/Settings';
 import LandingPage from './pages/LandingPage';
+import useStore from './store/useStore';
 
 function App() {
   const { isConnected } = useAccount();
+  const { initializeSession } = useStore();
+
+  // Initialize Supabase session when app loads
+  useEffect(() => {
+    initializeSession();
+  }, [initializeSession]);
 
   return (
     <Router>
@@ -30,3 +38,4 @@ function App() {
 }
 
 export default App;
+
