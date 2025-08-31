@@ -102,7 +102,7 @@ const InfluencerCard = ({ influencer, variant = 'basic' }) => {
 
       {variant === 'detailed' && (
         <div className="mt-4 pt-4 border-t border-gray-200">
-          <div className="text-sm text-gray-600">
+          <div className="text-xs sm:text-sm text-gray-600">
             <div className="mb-2">
               <span className="font-medium">Recent Performance:</span>
               <div className="flex items-center space-x-2 mt-1">

@@ -1,13 +1,16 @@
 import { useState } from 'react';
-import { Plus, Search, Filter, Calendar, DollarSign } from 'lucide-react';
+import { Plus, Search, Filter, Calendar, DollarSign, Target } from 'lucide-react';
 import useStore from '../store/useStore';
 import CampaignBriefForm from '../components/CampaignBriefForm';
+import CampaignWizard from '../components/CampaignWizard';
+import LoadingSpinner from '../components/LoadingSpinner';
 
 const Campaigns = () => {
   const { campaigns, addCampaign, updateCampaign } = useStore();
   const [showCreateForm, setShowCreateForm] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState('all');
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const filteredCampaigns = campaigns.filter(campaign => {
     const matchesSearch = campaign.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -17,12 +20,18 @@ const Campaigns = () => {
   });
 
   const handleCreateCampaign = (campaignData) => {
-    addCampaign({
-      ...campaignData,
-      status: 'draft',
-      influencerCount: 0
-    });
-    setShowCreateForm(false);
+    setIsSubmitting(true);
+    
+    // Simulate API delay
+    setTimeout(() => {
+      addCampaign({
+        ...campaignData,
+        status: 'draft',
+        influencerCount: 0
+      });
+      setIsSubmitting(false);
+      setShowCreateForm(false);
+    }, 1000);
   };
 
   const getStatusColor = (status) => {
@@ -42,12 +51,24 @@ const Campaigns = () => {
           <h1 className="text-3xl font-bold text-primary">Create New Campaign</h1>
           <button
             onClick={() => setShowCreateForm(false)}
-            className="px-4 py-2 text-gray-600 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors duration-200"
+            disabled={isSubmitting}
+            className="px-4 py-2 text-gray-600 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors duration-200 disabled:opacity-50"
           >
             Cancel
           </button>
         </div>
-        <CampaignBriefForm onSubmit={handleCreateCampaign} />
+        
+        {isSubmitting ? (
+          <div className="flex flex-col items-center justify-center py-12">
+            <LoadingSpinner size="large" />
+            <p className="mt-4 text-gray-600">Creating your campaign...</p>
+          </div>
+        ) : (
+          <CampaignWizard 
+            onSubmit={handleCreateCampaign} 
+            onCancel={() => setShowCreateForm(false)}
+          />
+        )}
       </div>
     );
   }
