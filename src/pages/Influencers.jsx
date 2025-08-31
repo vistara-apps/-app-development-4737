@@ -33,7 +33,7 @@ const Influencers = () => {
 
       {/* Filters */}
       <div className="bg-surface p-4 rounded-lg shadow-card">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           <div className="relative">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={16} />
             <input
@@ -45,44 +45,40 @@ const Influencers = () => {
             />
           </div>
           
-          <div className="grid grid-cols-2 sm:grid-cols-1 gap-2">
-            <select
-              value={nicheFilter}
-              onChange={(e) => setNicheFilter(e.target.value)}
-              className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent text-sm"
-            >
-              <option value="all">All Niches</option>
-              {niches.map(niche => (
-                <option key={niche} value={niche}>{niche.charAt(0).toUpperCase() + niche.slice(1)}</option>
-              ))}
-            </select>
-            
-            <select
-              value={platformFilter}
-              onChange={(e) => setPlatformFilter(e.target.value)}
-              className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent text-sm"
-            >
-              <option value="all">All Platforms</option>
-              {platforms.map(platform => (
-                <option key={platform} value={platform}>{platform.charAt(0).toUpperCase() + platform.slice(1)}</option>
-              ))}
-            </select>
-          </div>
+          <select
+            value={nicheFilter}
+            onChange={(e) => setNicheFilter(e.target.value)}
+            className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent"
+          >
+            <option value="all">All Niches</option>
+            {niches.map(niche => (
+              <option key={niche} value={niche}>{niche.charAt(0).toUpperCase() + niche.slice(1)}</option>
+            ))}
+          </select>
           
-          <div className="sm:col-span-2 lg:col-span-1">
-            <input
-              type="number"
-              placeholder="Min followers"
-              value={minFollowers}
-              onChange={(e) => setMinFollowers(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent text-sm"
-            />
-          </div>
+          <select
+            value={platformFilter}
+            onChange={(e) => setPlatformFilter(e.target.value)}
+            className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent"
+          >
+            <option value="all">All Platforms</option>
+            {platforms.map(platform => (
+              <option key={platform} value={platform}>{platform.charAt(0).toUpperCase() + platform.slice(1)}</option>
+            ))}
+          </select>
+          
+          <input
+            type="number"
+            placeholder="Min followers"
+            value={minFollowers}
+            onChange={(e) => setMinFollowers(e.target.value)}
+            className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent"
+          />
         </div>
       </div>
 
       {/* Results Summary */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+      <div className="flex items-center justify-between">
         <div className="text-sm text-gray-600">
           Showing {filteredInfluencers.length} of {influencers.length} influencers
         </div>
@@ -93,7 +89,7 @@ const Influencers = () => {
       </div>
 
       {/* Influencers Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {filteredInfluencers.map((influencer) => (
           <InfluencerCard key={influencer.influencerId} influencer={influencer} />
         ))}
