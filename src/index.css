@@ -2,9 +2,33 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  :root {
+    --color-bg: hsl(210 30% 95%);
+    --color-accent: hsl(170 70% 50%);
+    --color-primary: hsl(210 40% 35%);
+    --color-surface: hsl(210 30% 100%);
+    --color-text: hsl(210 40% 10%);
+    --color-text-secondary: hsl(210 20% 40%);
+    --color-border: hsl(210 20% 90%);
+  }
+
+  .dark {
+    --color-bg: hsl(210 30% 10%);
+    --color-accent: hsl(170 70% 40%);
+    --color-primary: hsl(210 40% 80%);
+    --color-surface: hsl(210 30% 15%);
+    --color-text: hsl(210 40% 90%);
+    --color-text-secondary: hsl(210 20% 70%);
+    --color-border: hsl(210 20% 25%);
+  }
+}
+
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
-  background-color: hsl(210 30% 95%);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .container-grid {
@@ -14,4 +38,41 @@ body {
   max-width: 1024px;
   margin: 0 auto;
   padding: 0 16px;
+}
+
+/* Improved focus styles for accessibility */
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-text-secondary);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-primary);
+}
+
+/* Improved touch targets for mobile */
+@media (max-width: 640px) {
+  button, 
+  [role="button"],
+  a.btn,
+  input[type="submit"],
+  input[type="button"] {
+    min-height: 44px;
+    min-width: 44px;
+  }
 }
