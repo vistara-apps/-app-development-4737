@@ -20,6 +20,8 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
 import './index.css'
+import { ThemeProvider } from './contexts/ThemeContext.jsx';
+import { NotificationProvider } from './contexts/NotificationContext.jsx';
 
 const queryClient = new QueryClient();
 
@@ -31,12 +33,16 @@ const config = getDefaultConfig({
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <WagmiProvider config={config}>
-      <QueryClientProvider client={queryClient}>
-        <RainbowKitProvider>
-          <App />
-        </RainbowKitProvider>
-      </QueryClientProvider>
-    </WagmiProvider>
+    <ThemeProvider>
+      <NotificationProvider>
+        <WagmiProvider config={config}>
+          <QueryClientProvider client={queryClient}>
+            <RainbowKitProvider>
+              <App />
+            </RainbowKitProvider>
+          </QueryClientProvider>
+        </WagmiProvider>
+      </NotificationProvider>
+    </ThemeProvider>
   </React.StrictMode>,
 )

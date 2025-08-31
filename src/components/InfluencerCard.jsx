@@ -24,32 +24,32 @@ const InfluencerCard = ({ influencer, variant = 'basic' }) => {
   const PlatformIcon = getPlatformIcon(influencer.platform);
 
   return (
-    <div className="bg-surface p-6 rounded-lg shadow-card hover:shadow-lg transition-shadow duration-200">
+    <div className="bg-surface p-4 sm:p-6 rounded-lg shadow-card hover:shadow-lg transition-shadow duration-200">
       {/* Header */}
-      <div className="flex items-start justify-between mb-4">
+      <div className="flex flex-col sm:flex-row sm:items-start justify-between mb-4 gap-2">
         <div className="flex items-center space-x-3">
           <img
             src={influencer.avatar}
             alt={influencer.username}
-            className="w-12 h-12 rounded-full"
+            className="w-10 h-10 sm:w-12 sm:h-12 rounded-full"
           />
-          <div>
-            <div className="font-semibold text-primary flex items-center space-x-2">
-              <span>{influencer.username}</span>
+          <div className="min-w-0">
+            <div className="font-semibold text-primary flex items-center space-x-2 text-sm sm:text-base">
+              <span className="truncate">{influencer.username}</span>
               {influencer.verified && (
-                <CheckCircle size={16} className="text-blue-500" />
+                <CheckCircle size={16} className="text-blue-500 flex-shrink-0" />
               )}
             </div>
-            <div className="flex items-center space-x-2 text-sm text-gray-500">
-              <PlatformIcon size={14} />
-              <span>{influencer.platform}</span>
-              <span>•</span>
-              <span>{influencer.niche}</span>
+            <div className="flex items-center space-x-2 text-xs sm:text-sm text-gray-500">
+              <PlatformIcon size={14} className="flex-shrink-0" />
+              <span className="truncate">{influencer.platform}</span>
+              <span className="flex-shrink-0">•</span>
+              <span className="truncate">{influencer.niche}</span>
             </div>
           </div>
         </div>
         
-        <div className={`px-2 py-1 rounded-full text-xs font-medium ${getAuthenticityBg(influencer.authenticityScore)} ${getAuthenticityColor(influencer.authenticityScore)}`}>
+        <div className={`self-start px-2 py-1 rounded-full text-xs font-medium ${getAuthenticityBg(influencer.authenticityScore)} ${getAuthenticityColor(influencer.authenticityScore)}`}>
           {influencer.authenticityScore}% authentic
         </div>
       </div>
@@ -57,7 +57,7 @@ const InfluencerCard = ({ influencer, variant = 'basic' }) => {
       {/* Stats */}
       <div className="grid grid-cols-2 gap-4 mb-4">
         <div className="text-center">
-          <div className="text-lg font-bold text-primary">
+          <div className="text-base sm:text-lg font-bold text-primary">
             {influencer.followers >= 1000000 
               ? `${(influencer.followers / 1000000).toFixed(1)}M`
               : `${(influencer.followers / 1000).toFixed(0)}K`}
@@ -65,7 +65,7 @@ const InfluencerCard = ({ influencer, variant = 'basic' }) => {
           <div className="text-xs text-gray-500">Followers</div>
         </div>
         <div className="text-center">
-          <div className="text-lg font-bold text-primary">{influencer.engagementRate}%</div>
+          <div className="text-base sm:text-lg font-bold text-primary">{influencer.engagementRate}%</div>
           <div className="text-xs text-gray-500">Engagement</div>
         </div>
       </div>
@@ -91,18 +91,18 @@ const InfluencerCard = ({ influencer, variant = 'basic' }) => {
       </div>
 
       {/* Actions */}
-      <div className="flex space-x-2">
-        <button className="flex-1 px-3 py-2 text-sm border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors duration-200">
+      <div className="flex flex-col sm:flex-row gap-2 sm:space-x-2">
+        <button className="w-full sm:flex-1 px-3 py-2 text-xs sm:text-sm border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors duration-200">
           View Profile
         </button>
-        <button className="flex-1 px-3 py-2 text-sm bg-accent text-white rounded-lg hover:bg-accent/90 transition-colors duration-200">
+        <button className="w-full sm:flex-1 px-3 py-2 text-xs sm:text-sm bg-accent text-white rounded-lg hover:bg-accent/90 transition-colors duration-200">
           Invite
         </button>
       </div>
 
       {variant === 'detailed' && (
         <div className="mt-4 pt-4 border-t border-gray-200">
-          <div className="text-sm text-gray-600">
+          <div className="text-xs sm:text-sm text-gray-600">
             <div className="mb-2">
               <span className="font-medium">Recent Performance:</span>
               <div className="flex items-center space-x-2 mt-1">
